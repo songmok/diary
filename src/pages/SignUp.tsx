@@ -2,10 +2,11 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import {
-  getAuth,
+  auth,
   createUserWithEmailAndPassword,
-  signOut,
-} from "firebase/auth";
+  app,
+  appSignOut,
+} from "../firebase";
 const SignUp = () => {
   const [nickName, setNickName] = useState("");
   const [email, setEmail] = useState("");
@@ -43,7 +44,6 @@ const SignUp = () => {
     // 연속 클릭 막기
     setBtRock(true);
 
-    const auth = getAuth();
     createUserWithEmailAndPassword(auth, email, pw)
       .then((userCredential: any) => {
         const user = userCredential.user;
@@ -60,10 +60,10 @@ const SignUp = () => {
               uid: user.uid,
             };
             axios
-              .post("/api/user/register", body)
+              .post("http://localhost:5000/api/user/register", body)
               .then((res) => {
                 if (res.data.success) {
-                  signOut(auth);
+                  appSignOut(auth);
                   navigate("/login");
                 } else {
                   console.log("재시도");

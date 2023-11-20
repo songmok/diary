@@ -1,7 +1,14 @@
 // Import the functions you need from the SDKs you need
-import firebase from "firebase/app";
-
+import firebase, { initializeApp } from "firebase/app";
+import "firebase/auth";
+import "firebase/database";
 import "firebase/compat/auth";
+import {
+  getAuth,
+  createUserWithEmailAndPassword,
+  Auth,
+  signOut,
+} from "firebase/auth";
 
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
@@ -18,4 +25,7 @@ const firebaseConfig = {
   measurementId: process.env.REACT_APP_MENTID,
 };
 
-firebase.initializeApp(firebaseConfig);
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const appSignOut: any = signOut(auth);
+export { auth, createUserWithEmailAndPassword, app, appSignOut };
