@@ -1,11 +1,7 @@
-import React from 'react'
+import React from "react";
 
 const Todo = () => {
-  return (
-    <div>
-      
-    </div>
-  )
-}
+  return <div>리스트입니다</div>;
+};
 
-export default Todo
+export default Todo;
