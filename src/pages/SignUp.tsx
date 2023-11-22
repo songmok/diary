@@ -6,6 +6,7 @@ import {
   createUserWithEmailAndPassword,
   app,
   appSignOut,
+  updateProfile,
 } from "../firebase";
 const SignUp = () => {
   const [nickName, setNickName] = useState("");
@@ -48,31 +49,29 @@ const SignUp = () => {
       .then((userCredential: any) => {
         const user = userCredential.user;
         console.log(user);
-        user
-          .updateProfile({
-            displayName: nickName,
-          })
-          .then(() => {
-            console.log(user);
-            let body = {
-              email: user.email,
-              displayName: user.displayName,
-              uid: user.uid,
-            };
-            axios
-              .post("http://localhost:5000/api/user/register", body)
-              .then((res) => {
-                if (res.data.success) {
-                  appSignOut(auth);
-                  navigate("/login");
-                } else {
-                  console.log("재시도");
-                }
-              })
-              .catch((err) => {
-                console.log(err);
-              });
-          });
+        updateProfile(user, {
+          displayName: nickName,
+        }).then(() => {
+          console.log(user);
+          let body = {
+            email: user.email,
+            displayName: user.displayName,
+            uid: user.uid,
+          };
+          axios
+            .post("http://localhost:5000/api/user/register", body)
+            .then((res) => {
+              if (res.data.success) {
+                appSignOut(auth);
+                navigate("/login");
+              } else {
+                console.log("재시도");
+              }
+            })
+            .catch((err) => {
+              console.log(err);
+            });
+        });
       })
       .catch((err) => {
         const errorCode = err.code;

@@ -7,7 +7,12 @@ import {
   getAuth,
   createUserWithEmailAndPassword,
   Auth,
+  signInWithEmailAndPassword,
   signOut,
+  updateEmail,
+  updateProfile,
+  updatePassword,
+  deleteUser,
 } from "firebase/auth";
 
 // TODO: Add SDKs for Firebase products that you want to use
@@ -28,4 +33,16 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const appSignOut: any = signOut(auth);
-export { auth, createUserWithEmailAndPassword, app, appSignOut };
+const crUser = auth.currentUser;
+export {
+  auth,
+  createUserWithEmailAndPassword,
+  app,
+  appSignOut,
+  signInWithEmailAndPassword,
+  updateEmail,
+  crUser,
+  updateProfile,
+  updatePassword,
+  deleteUser,
+};
