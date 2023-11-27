@@ -35,6 +35,11 @@ const Header = () => {
                 Todo
               </Link>
             </li>
+            <li>
+              <Link to="calendar" className="nav-link px-2 ">
+                캘린더
+              </Link>
+            </li>
           </ul>
         </div>
       </div>

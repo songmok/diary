@@ -6,6 +6,7 @@ import Footer from "./components/Footer";
 import Todo from "./pages/Todo";
 import Home from "./pages/Home";
 import UserEdit from "./pages/UserEdit";
+import Calendar from "./pages/Calendar";
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/todo" element={<Todo />} />
         <Route path="/useredit" element={<UserEdit />} />
+        <Route path="/calendar" element={<Calendar />} />
       </Routes>
       <Footer />
     </Router>

@@ -120,7 +120,7 @@ const UserEdit = () => {
       return alert("이메일을 입력하세요.");
     }
 
-    // firebase 이메일 변경 요청
+    // 이메일 변경 요청
     const crUser = auth.currentUser;
     if (crUser) {
       updateEmail(crUser, email)
@@ -133,9 +133,6 @@ const UserEdit = () => {
           axios
             .post("http://localhost:5000/api/user/update", body)
             .then((response) => {
-              // 서버에 사용자 이메일을 변경한다.
-              // 변경하고 나서 dipatch 보내주는 것으로 수정
-              // 실제 사용자 화면 및 userSlice state 정보 업데이트
               if (response.data.success) {
                 alert("정보가 업데이트 되었습니다.");
                 const userInfo = {
@@ -151,12 +148,10 @@ const UserEdit = () => {
               }
             })
             .catch((error) => {
-              // alert("서버가 불안정하게 연결하였습니다.");
               console.log(error);
             });
         })
         .catch((error) => {
-          // 로그인 실패
           const errorCode = error.code;
           const errorMessage = error.message;
           console.log(errorCode, errorMessage);
@@ -166,8 +161,6 @@ const UserEdit = () => {
         });
     }
   };
-
-  // 비밀번호 변경요청
   const passUpdateFn = (e: React.MouseEvent) => {
     e.preventDefault();
     if (!pw) {
@@ -176,7 +169,6 @@ const UserEdit = () => {
     if (!pwCheck) {
       return alert("비밀번호 확인을 입력하세요.");
     }
-    // 비밀번호가 같은지 비교처리
     if (pw !== pwCheck) {
       return alert("비밀번호는 같아야 합니다.");
     }
@@ -189,7 +181,6 @@ const UserEdit = () => {
           setPwCheck("");
         })
         .catch((error) => {
-          // 로그인 실패
           const errorCode = error.code;
           const errorMessage = error.message;
           console.log(errorCode, errorMessage);
@@ -236,7 +227,6 @@ const UserEdit = () => {
   return (
     <div className="p-6 m-4 shadow">
       <h2>User Info</h2>
-
       <form>
         <div className="flex justify-start mb-3">
           <label className="mr-5 text-xl ">닉네임</label>
