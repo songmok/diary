@@ -108,11 +108,11 @@ const SignUp = () => {
       });
   };
   return (
-    <div className="p-6 m-4 shadow">
-      <h2 className="text-2xl font-bold mb-4">SignUp</h2>
-      <form>
+    <div className="p-6 shadow w-3/5 m-auto rounded-2xl bg-red-400">
+      <h2 className="text-2xl font-bold mb-4">회원가입</h2>
+      <form className="flex flex-col">
         <div className="mb-4">
-          <label className="block text-gray-700">닉네임</label>
+          <label className="block text-gray-100 font-bold mb-3">닉네임</label>
           <input
             className="border border-gray-300 rounded-md p-2 w-full"
             type="text"
@@ -122,14 +122,16 @@ const SignUp = () => {
             onChange={(e) => setNickName(e.target.value)}
           />
         </div>
-        <button
-          className="bg-blue-500 text-white px-4 py-2 rounded-md mb-4"
-          onClick={(e) => nameCheckFn(e)}
-        >
-          닉네임 중복검사
-        </button>
+        <div className="flex justify-end mb-4">
+          <button
+            className="bg-blue-500 text-white w-1/5 px-4 py-2 rounded-md"
+            onClick={(e) => nameCheckFn(e)}
+          >
+            닉네임 중복검사
+          </button>
+        </div>
         <div className="mb-4">
-          <label className="block text-gray-700">이메일</label>
+          <label className="block text-gray-100 font-bold mb-3">이메일</label>
           <input
             className="border border-gray-300 rounded-md p-2 w-full"
             type="email"
@@ -139,7 +141,7 @@ const SignUp = () => {
           />
         </div>
         <div className="mb-4">
-          <label className="block text-gray-700">비밀번호</label>
+          <label className="block text-gray-100 font-bold mb-3">비밀번호</label>
           <input
             className="border border-gray-300 rounded-md p-2 w-full"
             type="password"
@@ -151,8 +153,10 @@ const SignUp = () => {
             onChange={(e) => setPw(e.target.value)}
           />
         </div>
-        <div className="mb-4 ">
-          <label className="block text-gray-700">비밀번호 확인</label>
+        <div className="mb-16">
+          <label className="block text-gray-100 font-bold mb-3">
+            비밀번호 확인
+          </label>
           <input
             className="border border-gray-300 rounded-md p-2 w-full"
             type="password"

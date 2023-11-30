@@ -1,3 +1,38 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+body {
+  background: #3b5998;
+}
+.bg-primary {
+  @apply bg-white dark:bg-slate-800;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  @apply text-indigo-800;
+}
+
+a {
+  @apply font-bold text-slate-900;
+}
+
+p {
+  @apply text-slate-500 dark:text-slate-400;
+}
+
+.blue {
+  background-color: #3b5998;
+}
+
+.pink {
+  background-color: hotpink;
+}
+
+.yellow {
+  background-color: khaki;
+  color: #3b5998;
+}

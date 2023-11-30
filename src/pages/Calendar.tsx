@@ -9,33 +9,32 @@ const Calendar = () => {
   const navigate = useNavigate();
   return (
     <>
-      <FullCalendar
-        plugins={[dayGridPlugin, interactionPlugin]}
-        headerToolbar={{
-          left: "title",
-          right: "prevYear,prev,today,next,nextYear",
-        }}
-        eventClick={(e) => {}}
-        initialView="dayGridMonth"
-        events={
-          // 정보전달
-          ""
-        }
-        droppable={false}
-        defaultAllDay={false}
-        editable={true}
-        selectable={false}
-        dateClick={(data) => {
-          // 해당 date 정보를 url로 전송
-          navigate("/");
-        }}
-        selectMirror={false}
-        displayEventTime={false}
-        weekends={true}
-        locale={"ko"}
-        eventStartEditable={false}
-        height={"85vh"}
-      />
+      <article className="container m-auto">
+        <FullCalendar
+          plugins={[dayGridPlugin, interactionPlugin]}
+          headerToolbar={{
+            left: "title",
+            right: "prevYear,prev,today,next,nextYear",
+          }}
+          eventClick={(e) => {}}
+          initialView="dayGridMonth"
+          events={""}
+          droppable={false}
+          defaultAllDay={false}
+          editable={true}
+          selectable={false}
+          dateClick={(data) => {
+            const todayData = data.dateStr;
+            navigate(`/${todayData}`);
+          }}
+          selectMirror={false}
+          displayEventTime={false}
+          weekends={true}
+          locale={"ko"}
+          eventStartEditable={false}
+          height={"85vh"}
+        />
+      </article>
     </>
   );
 };
