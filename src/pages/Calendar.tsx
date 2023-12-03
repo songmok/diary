@@ -15,25 +15,13 @@ const Calendar = () => {
     dispatch(fetchCate());
   }, []);
   const cateData = useSelector(
-    (state: ICate) => state.cate.categories.data.categories
+    (state: ICate) => state?.cate?.categories?.data?.categories
   );
 
   const navigate = useNavigate();
   const [cateName, setCateName] = useState("");
   const [message, setMessage] = useState("");
 
-  // const cateGet = () => {
-  //   axios
-  //     .get("http://localhost:5000/api/cate/categet")
-  //     .then((response) => {
-  //       const cateData = response.data.categories;
-  //       console.log("ca", cateData);
-  //       setCategories(cateData);
-  //     })
-  //     .catch((error) => {
-  //       console.error(error);
-  //     });
-  // };
   const cateCt = () => {
     const data = {
       cateName: cateName,
@@ -42,8 +30,7 @@ const Calendar = () => {
       .post("http://localhost:5000/api/cate/categories", data)
       .then((response) => {
         setMessage(response.data.message);
-        console.log("res", response);
-        fetchCate();
+        dispatch(fetchCate());
       })
       .catch((error) => {
         console.error(error);
@@ -68,13 +55,13 @@ const Calendar = () => {
             </div>
             <div>
               <h2>카테고리 목록</h2>
-              {/* {cates.map((v: any, i) => (
-              <>
-                <div className="ca" key={i}>
-                  {v.cateName}
-                </div>
-              </>
-            ))} */}
+              {cateData.map((v: any, i) => (
+                <>
+                  <div className="ca" key={i}>
+                    {v.cateName}
+                  </div>
+                </>
+              ))}
             </div>
             <FullCalendar
               plugins={[dayGridPlugin, interactionPlugin]}
@@ -103,7 +90,7 @@ const Calendar = () => {
             />
           </article>
         ) : (
-          <div>Loading...</div>
+          <></>
         )}
       </div>
     </>
