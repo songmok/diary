@@ -16,9 +16,11 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/signup" element={<SignUp />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/todo" element={<Todo />} />
+        <Route path="/calendar">
+          <Route index element={<Calendar />} />
+          <Route path="todo/:id" element={<Todo />} />
+        </Route>
         <Route path="/useredit" element={<UserEdit />} />
-        <Route path="/calendar" element={<Calendar />} />
       </Routes>
       <Footer />
     </Router>

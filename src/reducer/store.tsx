@@ -3,9 +3,11 @@ import storageSession from "redux-persist/lib/storage/session";
 import { combineReducers } from "redux";
 import { persistReducer } from "redux-persist";
 import userSlice from "./userSlice";
+import cateSlice from "./cateSlice";
 
-const reducers = combineReducers({
+const rootReducer = combineReducers({
   user: userSlice,
+  cate: cateSlice,
 });
 
 const persistConfig = {
@@ -13,15 +15,17 @@ const persistConfig = {
   storage: storageSession,
   whitelist: ["user"],
 };
-const presistedReducer = persistReducer(persistConfig, reducers);
+
+const persistedReducer = persistReducer(persistConfig, rootReducer);
 
 const store = configureStore({
-  reducer: presistedReducer,
-  middleware: (getDefaultMiddleware) => {
-    return getDefaultMiddleware({
+  reducer: persistedReducer,
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({
       serializableCheck: false,
-    });
-  },
+    }),
   devTools: process.env.NODE_ENV !== "production",
 });
+export type AppDispatch = typeof store.dispatch;
+export type RootState = ReturnType<typeof store.getState>;
 export default store;
