@@ -8,6 +8,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { ICate } from "../reducer/cateType";
 import { fetchCate } from "../reducer/cateSlice";
 import { AppDispatch } from "../reducer/store";
+import { IUser } from "../reducer/userType";
+import { loginUser } from "../reducer/userSlice";
 
 const Calendar = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -17,7 +19,7 @@ const Calendar = () => {
   const cateData = useSelector(
     (state: ICate) => state?.cate?.categories?.data?.categories
   );
-
+  const user = useSelector((state: IUser) => state?.user);
   const navigate = useNavigate();
   const [cateName, setCateName] = useState("");
   const [message, setMessage] = useState("");
@@ -25,6 +27,7 @@ const Calendar = () => {
   const cateCt = () => {
     const data = {
       cateName: cateName,
+      uid: user.uid,
     };
     axios
       .post("http://localhost:5000/api/cate/categories", data)
@@ -37,7 +40,7 @@ const Calendar = () => {
         setMessage("카테고리 생성 실패");
       });
   };
-
+  console.log("cate", cateData);
   return (
     <>
       <div>
@@ -47,7 +50,6 @@ const Calendar = () => {
               <input
                 type="text"
                 placeholder="카테고리 이름"
-                value={cateName}
                 onChange={(e) => setCateName(e.target.value)}
               />
               <button onClick={cateCt}>카테고리 생성</button>

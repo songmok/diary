@@ -1,6 +1,7 @@
 interface Category {
   _id: string;
   cateName: string;
+  uid: string;
   __v: number;
 }
 

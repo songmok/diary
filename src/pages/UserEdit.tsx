@@ -7,7 +7,7 @@ import { loginUser, clearUser } from "../reducer/userSlice";
 import {
   auth,
   updateEmail,
-  appSignOut,
+  signOut,
   crUser,
   updateProfile,
   updatePassword,
@@ -105,8 +105,8 @@ const UserEdit = () => {
           const errorMessage = error.message;
           console.log(errorCode, errorMessage);
           alert("서버가 불안정하게 연결하였습니다.\n다시 로그인 해주세요.");
-          appSignOut(auth);
-          dispatch(clearUser(""));
+          signOut(auth);
+          dispatch(clearUser());
           navigate("/login");
         });
     }
@@ -156,7 +156,7 @@ const UserEdit = () => {
           const errorMessage = error.message;
           console.log(errorCode, errorMessage);
           alert("서버가 불안정하게 연결하였습니다.\n다시 로그인 해주세요.");
-          dispatch(clearUser(""));
+          dispatch(clearUser());
           navigate("/login");
         });
     }
@@ -185,8 +185,8 @@ const UserEdit = () => {
           const errorMessage = error.message;
           console.log(errorCode, errorMessage);
           alert("서버가 불안정하게 연결하였습니다.\n다시 로그인 해주세요.");
-          appSignOut(auth);
-          dispatch(clearUser(""));
+          signOut(auth);
+          dispatch(clearUser());
           navigate("/login");
         });
     }
@@ -206,7 +206,7 @@ const UserEdit = () => {
             .then((response) => {
               if (response.data.success) {
                 alert("회원 탈퇴하였습니다.");
-                dispatch(clearUser(""));
+                dispatch(clearUser());
                 navigate("/login");
               } else {
                 console.log("회원정보 삭제 실패시에는 다시 저장을 도전한다.");

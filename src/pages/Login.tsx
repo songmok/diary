@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
-
 import { auth, signInWithEmailAndPassword } from "../firebase";
+
 const Login = () => {
   const [email, setEmail] = useState("");
   const [pw, setPw] = useState("");
@@ -29,13 +29,10 @@ const Login = () => {
     }
     signInWithEmailAndPassword(auth, email, pw)
       .then((userCredential) => {
-        const user = userCredential.user;
-        console.log(user);
         navigate("/calendar");
       })
       .catch((error) => {
         const errorCode = error.code;
-        const errorMessage = error.message;
         if (errorCode === "auth/wrong-password") {
           setErrMsg("비밀번호를 확인해주세요.");
         } else if (errorCode === "auth/user-not-found") {

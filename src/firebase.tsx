@@ -32,13 +32,13 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
-const appSignOut: any = signOut(auth);
+
 const crUser = auth.currentUser;
 export {
   auth,
   createUserWithEmailAndPassword,
   app,
-  appSignOut,
+  signOut,
   signInWithEmailAndPassword,
   updateEmail,
   crUser,

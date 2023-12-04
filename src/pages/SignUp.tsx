@@ -4,9 +4,8 @@ import axios from "axios";
 import {
   auth,
   createUserWithEmailAndPassword,
-  app,
-  appSignOut,
   updateProfile,
+  signOut,
 } from "../firebase";
 const SignUp = () => {
   const [nickName, setNickName] = useState("");
@@ -62,7 +61,7 @@ const SignUp = () => {
             .post("http://localhost:5000/api/user/register", body)
             .then((res) => {
               if (res.data.success) {
-                appSignOut(auth);
+                signOut(auth);
                 navigate("/login");
               } else {
                 console.log("재시도");

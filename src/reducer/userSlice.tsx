@@ -15,7 +15,7 @@ const userSlice = createSlice({
       state.accessToken = action.payload.accessToken;
       state.email = action.payload.email;
     },
-    clearUser: (state, action) => {
+    clearUser: (state) => {
       state.nickName = "";
       state.uid = "";
       state.accessToken = "";

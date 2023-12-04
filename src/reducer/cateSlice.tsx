@@ -1,15 +1,16 @@
 import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
 import axios from "axios";
-import { ICate } from "./cateType";
 
 interface CateState {
   status: string;
-  categories: string[];
+  cateName: string;
+  uid: string;
 }
 
 const initialState: CateState = {
   status: "",
-  categories: [],
+  cateName: "",
+  uid: "",
 };
 
 export const fetchCate = createAsyncThunk("cate/fetchCate", async () => {
