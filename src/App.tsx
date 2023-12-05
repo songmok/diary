@@ -19,9 +19,9 @@ function App() {
   const dispatch = useDispatch();
   const user = useSelector((state: IUser) => state.user);
   useEffect(() => {
-    const authChange = onAuthStateChanged(auth, (user) => {
-      if (user) {
-        dispatch(loginUser(user));
+    const authChange = onAuthStateChanged(auth, (auth) => {
+      if (auth) {
+        dispatch(loginUser(auth));
       } else {
         dispatch(clearUser());
       }

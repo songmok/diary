@@ -10,7 +10,7 @@ const userSlice = createSlice({
   },
   reducers: {
     loginUser: (state, action) => {
-      state.nickName = action.payload.displayName;
+      state.nickName = action.payload.nickName;
       state.uid = action.payload.uid;
       state.accessToken = action.payload.accessToken;
       state.email = action.payload.email;

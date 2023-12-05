@@ -5,12 +5,13 @@ interface CateState {
   status: string;
   cateName: string;
   uid: string;
+  categories: any[]; // 카테고리 배열의 타입을 any[]로 지정
 }
-
 const initialState: CateState = {
   status: "",
   cateName: "",
   uid: "",
+  categories: [],
 };
 
 export const fetchCate = createAsyncThunk("cate/fetchCate", async () => {
@@ -30,7 +31,7 @@ const cateSlice = createSlice({
       .addCase(fetchCate.pending, (state) => {
         state.status = "loading";
       })
-      .addCase(fetchCate.fulfilled, (state: any, action) => {
+      .addCase(fetchCate.fulfilled, (state, action: PayloadAction<any>) => {
         state.status = "succeeded";
         state.categories = action.payload;
       })
