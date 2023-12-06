@@ -8,7 +8,7 @@ const Footer = () => {
         <div className="sm:flex sm:items-center sm:justify-between">
           <Link
             to="https://songmok.site/"
-            className="text-sm text-gray-100 sm:text-cente"
+            className="text-sm text-gray-900 sm:text-cente"
             target="blank"
           >
             SONGMOK
