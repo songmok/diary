@@ -5,20 +5,17 @@ import interactionPlugin from "@fullcalendar/interaction";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
-import { ICate } from "../reducer/cateType";
 import { fetchCate } from "../reducer/cateSlice";
 import { AppDispatch } from "../reducer/store";
 import { IUser } from "../reducer/userType";
-import { loginUser } from "../reducer/userSlice";
+import { ICate, ICategory } from "../reducer/cateType";
 
 const Calendar = () => {
   const dispatch = useDispatch<AppDispatch>();
   useEffect(() => {
     dispatch(fetchCate());
   }, []);
-  const cateData = useSelector(
-    (state: ICate) => state?.cate?.categories?.data?.categories
-  );
+  const cateData = useSelector((state: ICate) => state.cate.categories);
   const user = useSelector((state: IUser) => state?.user);
   const navigate = useNavigate();
   const [cateName, setCateName] = useState("");
@@ -40,7 +37,7 @@ const Calendar = () => {
         setMessage("카테고리 생성 실패");
       });
   };
-  console.log("cate", cateData);
+
   return (
     <>
       <div>
@@ -57,9 +54,9 @@ const Calendar = () => {
             </div>
             <div>
               <h2>카테고리 목록</h2>
-              {cateData.map((v: any, i) => (
+              {cateData.map((v: ICategory, i) => (
                 <>
-                  <div className="ca" key={i}>
+                  <div className="ca" key={v._id}>
                     {v.cateName}
                   </div>
                 </>

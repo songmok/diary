@@ -1,10 +1,10 @@
-interface Category {
+export interface ICategory {
   _id: string;
-  cateName: string;
   uid: string;
+  cateName: string;
   __v: number;
 }
 
 export interface ICate {
-  cate: { categories: { data: { categories: Category[] } } };
+  cate: { categories: ICategory[] };
 }

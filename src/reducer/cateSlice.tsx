@@ -1,27 +1,40 @@
 import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
 import axios from "axios";
+import { useSelector } from "react-redux";
+import { IUser } from "./userType";
+import { RootState } from "./store";
+import { loginUser } from "./userSlice";
 
-interface CateState {
-  status: string;
+interface ICateArr {
   cateName: string;
   uid: string;
-  categories: any[]; // 카테고리 배열의 타입을 any[]로 지정
 }
-const initialState: CateState = {
+
+interface ICateState {
+  status: string;
+  categories: ICateArr[];
+}
+const initialState: ICateState = {
   status: "",
-  cateName: "",
-  uid: "",
   categories: [],
 };
 
-export const fetchCate = createAsyncThunk("cate/fetchCate", async () => {
-  try {
-    const response = await axios.get("http://localhost:5000/api/cate/categet");
-    return response;
-  } catch (err) {
-    return err;
+export const fetchCate = createAsyncThunk(
+  "cate/fetchCate",
+  async (_, { getState }: any) => {
+    try {
+      const { uid } = getState().user;
+      const response = await axios.get(
+        `http://localhost:5000/api/cate/categet?uid=${uid}`
+      );
+      console.log("re", response.data.category);
+      return response.data.category;
+    } catch (err) {
+      throw err;
+    }
   }
-});
+);
+
 const cateSlice = createSlice({
   name: "cate",
   initialState,
