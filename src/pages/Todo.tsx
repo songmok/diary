@@ -1,14 +1,18 @@
 import { useState } from "react";
 import { useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { IUser } from "../reducer/userType";
 import axios from "axios";
+import ReactQuill from "react-quill";
+import "react-quill/dist/quill.snow.css";
+import { ICate, ICategory } from "../reducer/cateType";
 const Todo = () => {
   const params = useParams();
-  const { dateparms } = params;
-
+  const dateparms = params.id;
   const [todoValue, setTodoValue] = useState("");
-  const user = useSelector((state: IUser) => state.user);
+
+  const cateData = useSelector((state: ICate) => state.cate.categories);
+  const user = useSelector((state: IUser) => state?.user);
   const addTodoSubmit = (event: any) => {
     event.preventDefault();
     let str = todoValue.trim();
@@ -41,27 +45,27 @@ const Todo = () => {
         console.log(err);
       });
   };
+
+  const formattedDate = `${dateparms?.substring(0, 4)}-${dateparms?.substring(
+    4,
+    6
+  )}-${dateparms?.substring(6, 8)}`;
   return (
-    <div>
-      <h1>Todo {dateparms}</h1>
-      <div>
-        <form className="flex pt-2" onSubmit={addTodoSubmit}>
-          <input
-            type="text"
-            placeholder="할 일을 입력하세요"
-            className="w-full px-3 py-2 mr-4 text-gray-500 border rounded shadow"
-            value={todoValue}
-            // onChange={changeTodoValue}
-          ></input>
-          <input
-            type="submit"
-            // onClick={addTodo}
-            // onSubmit={addTodo}
-            className="p-2 text-blue-400 border-2 border-blue-400 rounded hover:text-white hover:bg-blue-400"
-          ></input>
-        </form>
-      </div>
-    </div>
+    <article>
+      <h1>{formattedDate} 입니다</h1>
+
+      <Link to="/calendar">달력으로 돌아가기</Link>
+      <h2>카테고리 목록</h2>
+      {cateData.map((v: ICategory, i) => (
+        <>
+          <div className="" key={v._id}>
+            {v.cateName}
+          </div>
+        </>
+      ))}
+
+      <ReactQuill onChange={addTodoSubmit} />
+    </article>
   );
 };
 export default Todo;
