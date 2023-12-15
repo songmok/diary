@@ -29,15 +29,14 @@ const Calendar = () => {
     axios
       .post("http://localhost:5000/api/cate/categories", data)
       .then((response) => {
-        setMessage(response.data.message);
         dispatch(fetchCate());
       })
       .catch((error) => {
         console.error(error);
         setMessage("카테고리 생성 실패");
+        alert(message);
       });
   };
-  // 카테고리 삭제
   const cateDelete = (id: string) => {
     axios
       .delete("http://localhost:5000/api/cate/delete", { data: { id } })
@@ -77,7 +76,9 @@ const Calendar = () => {
                 <span>{v.cateName}</span>
                 <button
                   className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
-                  onClick={() => cateDelete(v._id)}
+                  onClick={() => {
+                    cateDelete(v._id);
+                  }}
                 >
                   삭제
                 </button>
