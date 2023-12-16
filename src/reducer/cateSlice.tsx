@@ -1,11 +1,8 @@
 import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
 import axios from "axios";
-import { useSelector } from "react-redux";
-import { IUser } from "./userType";
-import { RootState } from "./store";
-import { loginUser } from "./userSlice";
 
 interface ICateArr {
+  cateId: Number;
   cateName: string;
   uid: string;
 }
@@ -27,7 +24,7 @@ export const fetchCate = createAsyncThunk(
       const response = await axios.get(
         `http://localhost:5000/api/cate/categet?uid=${uid}`
       );
-      console.log("re", response.data.category);
+      console.log("cate", response.data.category);
       return response.data.category;
     } catch (err) {
       throw err;

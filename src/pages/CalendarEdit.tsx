@@ -10,7 +10,7 @@ import { AppDispatch } from "../reducer/store";
 import { IUser } from "../reducer/userType";
 import { ICate, ICategory } from "../reducer/cateType";
 
-const Calendar = () => {
+const CalendarEdit = () => {
   const dispatch = useDispatch<AppDispatch>();
   useEffect(() => {
     dispatch(fetchCate());
@@ -23,6 +23,7 @@ const Calendar = () => {
 
   const cateCt = () => {
     const data = {
+      cateId: Date.now(),
       cateName: cateName,
       uid: user.uid,
     };
@@ -118,4 +119,4 @@ const Calendar = () => {
   );
 };
 
-export default Calendar;
+export default CalendarEdit;

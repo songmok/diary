@@ -2,11 +2,11 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useParams } from "react-router-dom";
 import { IUser } from "../reducer/userType";
-import axios from "axios";
-import "react-quill/dist/quill.snow.css";
 import { ICate, ICategory } from "../reducer/cateType";
 import { AppDispatch } from "../reducer/store";
 import { fetchCate } from "../reducer/cateSlice";
+import axios from "axios";
+
 const Todo = () => {
   const dispatch = useDispatch<AppDispatch>();
   useEffect(() => {
@@ -30,7 +30,7 @@ const Todo = () => {
       return;
     }
     const addTodo = {
-      id: Date.now(),
+      todoId: Date.now(),
       desc: todoValue,
       completed: false,
       uid: user.uid,
@@ -52,6 +52,7 @@ const Todo = () => {
         alert("할 일 등록에 실패했습니다. 다시 시도해주세요.");
       });
   };
+
   const formReset = (data: ICategory) => {
     if (cateState === "" || !todoValue) {
       return;

@@ -1,4 +1,5 @@
 export interface ICategory {
+  cateId: number;
   _id: string;
   uid: string;
   cateName: string;

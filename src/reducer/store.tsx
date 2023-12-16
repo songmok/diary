@@ -4,10 +4,12 @@ import { combineReducers } from "redux";
 import { persistReducer } from "redux-persist";
 import userSlice from "./userSlice";
 import cateSlice from "./cateSlice";
+import todoSlice from "./todoSlice";
 
 const rootReducer = combineReducers({
   user: userSlice,
   cate: cateSlice,
+  todo: todoSlice,
 });
 
 const persistConfig = {
