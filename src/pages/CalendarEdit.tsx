@@ -104,7 +104,7 @@ const CalendarEdit = () => {
             dateClick={(data) => {
               const todayData = data.dateStr;
               const today = todayData.replace(/-/g, "");
-              navigate(`todo/${today}`, { replace: true });
+              navigate(`list/${today}`, { replace: true });
             }}
             selectMirror={false}
             displayEventTime={false}

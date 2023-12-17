@@ -7,42 +7,40 @@ import { AppDispatch } from "../reducer/store";
 import { fetchCate } from "../reducer/cateSlice";
 import axios from "axios";
 
-const Todo = () => {
+const List = () => {
   const dispatch = useDispatch<AppDispatch>();
-  useEffect(() => {
-    dispatch(fetchCate());
-  }, []);
 
   const params = useParams();
   const dateparms = params.id;
-  const [todoValue, setTodoValue] = useState("");
-
+  const [listValue, setListValue] = useState("");
+  const [listData, setListData] = useState([]);
   const cateData = useSelector((state: ICate) => state.cate.categories);
   const user = useSelector((state: IUser) => state?.user);
+
   const [cateState, setCateState] = useState("");
 
-  const addTodoSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const addListSumbit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    let str = todoValue.trim();
+    let str = listValue.trim();
     if (str.length === 0) {
       alert("내용을 입력하세요.");
-      setTodoValue("");
+      setListValue("");
       return;
     }
-    const addTodo = {
-      todoId: Date.now(),
-      desc: todoValue,
+    const addList = {
+      listId: Date.now(),
+      desc: listValue,
       completed: false,
       uid: user.uid,
       date: dateparms,
       category: cateState,
     };
     axios
-      .post("http://localhost:5000/api/post/submit", { ...addTodo })
+      .post("http://localhost:5000/api/post/submit", { ...addList })
       .then((res) => {
         if (res.data.success) {
-          setTodoValue("");
-          alert("할 일이 등록되었습니다");
+          setListValue("");
+          alert("리스트가 등록되었습니다");
         } else {
           alert("등록에 실패했습니다");
         }
@@ -52,9 +50,28 @@ const Todo = () => {
         alert("할 일 등록에 실패했습니다. 다시 시도해주세요.");
       });
   };
+  // todoget redux 수정
+  const listDateGet = () => {
+    const getList = {
+      params: {
+        uid: user.uid,
+        date: dateparms,
+      },
+    };
+    axios
+      .get(`http://localhost:5000/api/post/listDateGet`, getList)
+      .then((res) => {
+        console.log("rssse", res.data);
+        setListData(res.data.initList);
+      })
+      .catch((err) => {
+        console.log(err);
+        return [];
+      });
+  };
 
   const formReset = (data: ICategory) => {
-    if (cateState === "" || !todoValue) {
+    if (cateState === "" || !listValue) {
       return;
     }
 
@@ -66,13 +83,17 @@ const Todo = () => {
       "다른 카테고리로 넘어가면 기록된 정보가 초기화됩니다."
     );
     if (confirmed) {
-      setTodoValue("");
+      setListValue("");
     }
   };
   const formattedDate = `${dateparms?.substring(0, 4)}-${dateparms?.substring(
     4,
     6
   )}-${dateparms?.substring(6, 8)}`;
+  useEffect(() => {
+    dispatch(fetchCate());
+    listDateGet();
+  }, []);
   return (
     <article>
       <h1>{formattedDate} 입니다</h1>
@@ -90,11 +111,11 @@ const Todo = () => {
             {v.cateName}
           </div>
           {cateState === v.cateName && (
-            <form onSubmit={addTodoSubmit}>
+            <form onSubmit={addListSumbit}>
               <input
                 type="text"
-                value={todoValue}
-                onChange={(e) => setTodoValue(e.target.value)}
+                value={listValue}
+                onChange={(e) => setListValue(e.target.value)}
                 placeholder="할 일을 입력하세요"
               />
               <button type="submit">추가</button>
@@ -102,7 +123,10 @@ const Todo = () => {
           )}
         </>
       ))}
+      {listData.map((v: any, i) => {
+        return <div>{v.desc}</div>;
+      })}
     </article>
   );
 };
-export default Todo;
+export default List;
